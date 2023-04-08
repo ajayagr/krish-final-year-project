@@ -1,7 +1,8 @@
+import { Outlet } from "react-router-dom";
 import "./App.css";
 
 function App() {
-  return <h1 className="font-bold underline">Welcome to my App</h1>;
+  return <Outlet />;
 }
 
 export default App;

@@ -1,15 +1,97 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import { RouterProvider } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { router } from "./routes";
+import { Provider } from "react-redux";
+import { store } from "./store";
+
+const theme = createTheme({
+  palette: {
+    mode: "light",
+    primary: {
+      main: "#0041F0",
+    },
+    error: {
+      main: "#E5172B",
+    },
+    warning: {
+      main: "#F67B09",
+    },
+    success: {
+      main: "#209B54",
+    },
+    customLight: {
+      main: "#E8EDFA",
+      light: "#F8F5FF",
+      dark: "#E2F1FF",
+    },
+    customGrey: {
+      main: "#888888",
+      light: "#D0D0D0",
+      dark: "#292929",
+    },
+    accent: {
+      main: "#A055F5",
+    },
+  },
+  typography: {
+    fontFamily: "Inter,Roboto,Helvetica,Arial,sans-serif",
+    allVariants: {
+      color: "#212121",
+      lineHeight: 1.1,
+    },
+    h1: {
+      fontSize: "80px",
+      fontWeight: "bold",
+    },
+    h2: {
+      fontSize: "64px",
+      fontWeight: "bold",
+    },
+    h3: {
+      fontSize: "40px",
+      fontWeight: "bold",
+    },
+    h4: {
+      fontSize: "32px",
+      fontWeight: "600",
+    },
+    h5: {
+      fontSize: "24px",
+      fontWeight: "600",
+    },
+    h6: {
+      fontSize: "20px",
+      fontWeight: "500",
+    },
+    body1: {
+      fontSize: "16px",
+      fontWeight: "normal",
+    },
+    body2: {
+      fontSize: "16px",
+      fontWeight: "600",
+    },
+    caption: {
+      fontSize: "14px",
+      fontWeight: "normal",
+    },
+  },
+});
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </ThemeProvider>
   </React.StrictMode>
 );
 
