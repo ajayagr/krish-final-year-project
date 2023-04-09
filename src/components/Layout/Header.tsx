@@ -12,6 +12,7 @@ import {
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useState } from "react";
 import CustomLink from "../routing/CustomLink";
+import { useLocation } from "react-router";
 
 const StyledLink = styled(CustomLink)({
   marginRight: "16px",
@@ -32,8 +33,14 @@ const StyledAppBar = styled(AppBar)({
   backgroundColor: "white",
 });
 
-const Header: React.FC = () => {
+const hideHeaderLinks = ["auth"];
+
+const Header = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const location = useLocation();
+  if (hideHeaderLinks.some((link) => location.pathname.includes(link))) {
+    return null;
+  }
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -43,11 +50,11 @@ const Header: React.FC = () => {
   };
 
   return (
-    <StyledAppBar position="sticky">
+    <StyledAppBar position="static">
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center" }}>
           <StyledLink to="/">Home</StyledLink>
-          <StyledLink to="/projects">Projects</StyledLink>
+          <StyledLink to="/project">Projects</StyledLink>
         </div>
         <div style={{ display: "flex", alignItems: "center" }}>
           <IconButton color="inherit" sx={{ mr: "24px" }}>

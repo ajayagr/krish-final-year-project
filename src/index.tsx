@@ -1,12 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import reportWebVitals from "./reportWebVitals";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { RouterProvider } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { router } from "./routes";
 import { Provider } from "react-redux";
 import { store } from "./store";
+import reportWebVitals from "./reportWebVitals";
+import "./index.css";
 
 const theme = createTheme({
   palette: {
@@ -36,6 +38,7 @@ const theme = createTheme({
     accent: {
       main: "#A055F5",
     },
+    contrastThreshold: 4.5,
   },
   typography: {
     fontFamily: "Inter,Roboto,Helvetica,Arial,sans-serif",
@@ -80,6 +83,30 @@ const theme = createTheme({
       fontWeight: "normal",
     },
   },
+  components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+      styleOverrides: {
+        root: {
+          borderRadius: "40px",
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: ({ ownerState }) => ({
+          ...(ownerState.variant === "contained" && {
+            color: "white",
+            padding: "16px 20px",
+          }),
+          borderRadius: "40px",
+          textTransform: "none",
+        }),
+      },
+    },
+  },
 });
 
 const root = ReactDOM.createRoot(
@@ -89,7 +116,9 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <RouterProvider router={router} />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <RouterProvider router={router} />
+        </LocalizationProvider>
       </Provider>
     </ThemeProvider>
   </React.StrictMode>

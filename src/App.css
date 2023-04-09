@@ -1,0 +1,28 @@
+:root {
+  --blue-primary: #0041f0;
+  --orange-primary: #f67b09;
+}
+
+* {
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+}
+
+span.status {
+  display: block;
+  height: 1rem;
+  width: 1rem;
+  border-radius: 50%;
+}
+
+.status.on-time {
+  background-color: var(--blue-primary);
+}
+
+.status.delayed {
+  background-color: var(--orange-primary);
+}
+
+.status.missing-status {
+  background-color: grey;
+}

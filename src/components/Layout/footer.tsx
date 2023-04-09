@@ -21,7 +21,6 @@ function Copyright(props: any) {
 const Footer = () => {
   return (
     <div>
-      Footer
       <Copyright sx={{ mt: 8, mb: 4 }} />
     </div>
   );

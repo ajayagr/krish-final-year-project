@@ -9,15 +9,19 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import CustomLink from "../../components/routing/CustomLink";
+import { useNavigate } from "react-router";
 
 export default function Login() {
+  const navigate = useNavigate();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    console.log(data);
     console.log({
       email: data.get("email"),
       password: data.get("password"),
     });
+    navigate("/project");
   };
 
   return (
@@ -37,8 +41,9 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <TextField
+            type="email"
             margin="normal"
             required
             fullWidth
