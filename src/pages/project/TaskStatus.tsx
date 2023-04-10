@@ -21,9 +21,15 @@ const getTaskItems = () => {
   const taskNum = Math.max(1, Math.round(Math.random() * 3));
   const items: string[] = [];
   for (let i = 0; i < taskNum; i++) {
-    let item = taskList[Math.round(Math.random() * taskList.length)];
+    let item =
+      taskList[
+        Math.min(Math.round(Math.random() * taskList.length), taskList.length)
+      ];
     while (items.includes(item)) {
-      item = taskList[Math.round(Math.random() * taskList.length)];
+      item =
+        taskList[
+          Math.min(Math.round(Math.random() * taskList.length), taskList.length)
+        ];
     }
     items.push(item);
   }
@@ -118,11 +124,15 @@ const TaskStatus = () => {
                       mb: 2,
                       backgroundColor: "#E8EDFA",
                       borderRadius: "40px",
+                      cursor: "pointer",
                     }}
                     key={task}
                     onClick={() => setSelectedTask(task)}
                   >
-                    <Typography variant="body1" fontWeight={500}>
+                    <Typography
+                      variant="body1"
+                      fontWeight={selectedTask === task ? 700 : 500}
+                    >
                       {task}
                     </Typography>
                   </ListItem>
@@ -209,7 +219,7 @@ const StatusOperations = ({ date, task }: IStatusOperations) => {
 
   return (
     <>
-      <Typography variant="h5">Status</Typography>
+      <Typography variant="h5">Status: {task}</Typography>
       {showForm ? (
         <Box
           ref={formRef}
