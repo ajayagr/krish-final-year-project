@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import {
   Box,
   Button,
@@ -5,35 +6,35 @@ import {
   List,
   ListItem,
   Stack,
-  TextField,
   Typography,
 } from "@mui/material";
-import AttachmentIcon from "@mui/icons-material/Attachment";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import ShortCalendar from "../../components/Calendar/ShortCalendar";
-import dayjs from "dayjs";
 import { taskList } from "../../constants/options";
-import { useEffect, useRef, useState } from "react";
-import IOSSwitchComponent from "../../components/inputs/IOSSwitch";
-import ImagePreviewList from "../../components/ImagePreviewList";
+import StatusOperationForm from "../../components/project/status/statusOperationForm";
+import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import StatusOperationView from "../../components/project/status/statusOperationView";
 
 const getTaskItems = () => {
   const taskNum = Math.max(1, Math.round(Math.random() * 3));
   const items: string[] = [];
   for (let i = 0; i < taskNum; i++) {
-    let item =
-      taskList[
-        Math.min(Math.round(Math.random() * taskList.length), taskList.length)
-      ];
-    while (items.includes(item)) {
-      item =
-        taskList[
-          Math.min(Math.round(Math.random() * taskList.length), taskList.length)
-        ];
+    let item = taskList[Math.round(Math.random() * taskList.length - 1)];
+    while (!item || items.includes(item)) {
+      item = taskList[Math.round(Math.random() * taskList.length - 1)];
     }
     items.push(item);
   }
   return items;
+};
+
+const dailyStatus: IDailyStatusReadData = {
+  description: "This is a sample description",
+  machineCount: 10,
+  workerCount: 10,
+  projectStatus: "On Time",
+  images: [],
 };
 
 const TaskStatus = () => {
@@ -111,6 +112,10 @@ const TaskStatus = () => {
               defaultSelectedValue={
                 date ? date : new Date().toLocaleDateString()
               }
+              disableFuture
+              minDate={dayjs(
+                date ? date : new Date().toLocaleDateString()
+              ).subtract(14, "days")}
               onChange={onDateChange}
             />
           </Box>
@@ -132,6 +137,7 @@ const TaskStatus = () => {
                     <Typography
                       variant="body1"
                       fontWeight={selectedTask === task ? 700 : 500}
+                      fontSize={selectedTask === task ? "20px" : "16px"}
                     >
                       {task}
                     </Typography>
@@ -142,72 +148,73 @@ const TaskStatus = () => {
           </Box>
         </Grid>
         <Grid item xs px={3} display="flex" flexDirection={"column"}>
-          <StatusOperations date={date ?? ""} task={selectedTask} />
+          <StatusOperations
+            date={date ?? ""}
+            task={selectedTask}
+            data={{ ...dailyStatus }}
+          />
         </Grid>
       </Grid>
     </div>
   );
 };
 
+interface IDailyStatusData {
+  workerCount: number;
+  machineCount: number;
+  description: string;
+  images: Array<File | Blob>;
+}
+
+export interface IDailyStatusReadData extends IDailyStatusData {
+  projectStatus: string;
+}
+
+export interface IDailyStatusFormData extends IDailyStatusData {
+  isOnTime: boolean;
+}
+
 interface IStatusOperations {
   date: string;
   task: string;
+  data: IDailyStatusReadData;
 }
 
-const StatusOperations = ({ date, task }: IStatusOperations) => {
+const StatusOperations = ({ date, task, data }: IStatusOperations) => {
   const [showForm, setShowForm] = useState(false);
-  const [isOnTime, setIsOnTime] = useState(true);
-  const [fileUploadData, setFileUploadData] = useState<File[]>([]);
-  const fileUploadRef = useRef<HTMLInputElement | null>(null);
-  const formRef = useRef<HTMLFormElement | null>(null);
-
-  const resetForm = () => {
-    setIsOnTime(true);
-    setFileUploadData([]);
-    if (fileUploadRef.current) {
-      fileUploadRef.current.value = "";
-    }
-    if (formRef.current) {
-      formRef.current.reset();
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("worker-count"),
-      password: data.get("machine-count"),
-      description: data.get("description"),
-      isDelayed: isOnTime,
-    });
-    if (fileUploadRef.current) {
-      fileUploadRef.current.value = "";
-      setFileUploadData([]);
-    }
-  };
-
-  const handleFileUpload = () => {
-    if (!fileUploadRef.current || !fileUploadRef.current.files?.length) {
-      return;
-    }
-    let files: File[] = [];
-    for (let i = 0; i < fileUploadRef.current.files.length ?? 0; i++) {
-      files.push(fileUploadRef.current.files.item(i) as File);
-    }
-    setFileUploadData(files);
-    fileUploadRef.current.value = "";
-  };
-
-  const handlePreviewDelete = (item: File, index: number) => {
-    fileUploadData.splice(index, 1);
-    setFileUploadData([...fileUploadData]);
-  };
+  const [viewData, setViewData] = useState<IDailyStatusReadData>({ ...data });
+  const [formData, setFormData] = useState<IDailyStatusFormData>(
+    {} as IDailyStatusFormData
+  );
 
   useEffect(() => {
     setShowForm(false);
-    resetForm();
   }, [date, task]);
+
+  useEffect(() => {
+    const formData: Record<string, any> = {
+      ...data,
+      isOnTime: data.projectStatus === "On Time" ? true : false,
+    };
+    delete formData.projectStatus;
+    setFormData(formData as IDailyStatusFormData);
+    setViewData(data);
+  }, [data]);
+
+  const handleSubmit = (data: Record<string, any>) => {
+    const readData: Record<string, any> = {
+      ...data,
+      projectStatus: data.isOnTime ? "On Time" : "Delayed",
+    };
+    delete readData.isOnTime;
+    setFormData(data as IDailyStatusFormData);
+    setViewData(readData as IDailyStatusReadData);
+    setShowForm(false);
+  };
+
+  const handleCancel = () => {
+    setShowForm(false);
+  };
 
   if (!date || !task) {
     return (
@@ -219,102 +226,39 @@ const StatusOperations = ({ date, task }: IStatusOperations) => {
 
   return (
     <>
-      <Typography variant="h5">Status: {task}</Typography>
+      <Stack direction="row" gap={2} alignItems={"center"}>
+        <Typography variant="h5">Status</Typography>
+        {viewData.projectStatus && !showForm ? (
+          <Button
+            variant="text"
+            endIcon={<BorderColorOutlinedIcon color="primary" />}
+            onClick={() => setShowForm(true)}
+          >
+            <Typography variant="body1" fontWeight={500} color="primary">
+              Edit
+            </Typography>
+          </Button>
+        ) : (
+          <></>
+        )}
+      </Stack>
       {showForm ? (
-        <Box
-          ref={formRef}
-          component="form"
+        <StatusOperationForm
           onSubmit={handleSubmit}
-          noValidate
-          mt={1}
-          flex={1}
-        >
-          <Stack className="h-full">
-            <Grid item alignSelf={"flex-end"}>
-              <IOSSwitchComponent
-                checked={isOnTime}
-                onLabel="On Time"
-                offLabel="Mark Delay"
-                ariaLabel="Task Status"
-                onChange={(
-                  event: React.ChangeEvent<HTMLInputElement>,
-                  checked: boolean
-                ) => setIsOnTime(checked)}
-              />
-            </Grid>
-            <Grid container gap={2}>
-              <TextField
-                margin="normal"
-                required
-                id="worker-count"
-                label="Worker Count"
-                type="number"
-                name="worker-count"
-                placeholder="0"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                name="machine-count"
-                label="Machine Count"
-                type="number"
-                placeholder="0"
-                id="machine-count"
-              />
-            </Grid>
-            <TextField
-              margin="normal"
-              multiline
-              rows={5}
-              required
-              name="description"
-              label="Description"
-              type="text"
-              id="description"
-              placeholder="Description of task done today"
-            />
-            <Grid container alignItems={"center"}>
-              <Button
-                variant="text"
-                endIcon={
-                  <AttachmentIcon sx={{ transform: "rotate(135deg)" }} />
-                }
-                onClick={() => fileUploadRef.current?.click()}
-              >
-                Upload Photos
-                <input
-                  id="upload-files"
-                  name="Upload File"
-                  ref={fileUploadRef}
-                  hidden
-                  accept="image/*"
-                  multiple
-                  type="file"
-                  onChange={handleFileUpload}
-                />
-              </Button>
-              <Typography variant="caption" color="customGrey.main">
-                Max File size: 2MB
-              </Typography>
-            </Grid>
-            <Grid container>
-              <ImagePreviewList
-                images={fileUploadData}
-                onDelete={handlePreviewDelete}
-              />
-            </Grid>
-            <Grid container mt="auto" mb="2" justifyContent={"end"} gap={2}>
-              <Button variant="outlined" onClick={() => resetForm()}>
-                Cancel
-              </Button>
-              <Button type="submit" variant="contained">
-                Save
-              </Button>
-            </Grid>
-          </Stack>
+          onCancel={handleCancel}
+          data={formData}
+        />
+      ) : (
+        <></>
+      )}
+      {viewData.projectStatus && !showForm ? (
+        <Box mt={2}>
+          <StatusOperationView {...viewData} />
         </Box>
       ) : (
+        <></>
+      )}
+      {!viewData.projectStatus ? (
         <Box mt={7} flex={1}>
           <Typography variant="body1" color="customGrey.main" fontSize={"20px"}>
             No Status Added
@@ -329,6 +273,8 @@ const StatusOperations = ({ date, task }: IStatusOperations) => {
             </Typography>
           </Button>
         </Box>
+      ) : (
+        <></>
       )}
     </>
   );

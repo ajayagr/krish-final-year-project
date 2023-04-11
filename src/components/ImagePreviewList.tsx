@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
@@ -6,8 +7,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { styled } from "@mui/material";
 
 export interface IImagePreviewListProps {
-  images: File[];
-  onDelete: (item: File, index: number) => void;
+  images: Array<File | Blob>;
+  onDelete?: (index: number) => void;
 }
 
 const StyledImageListItemBar = styled(ImageListItemBar)({
@@ -34,33 +35,31 @@ export default function ImagePreviewList({
       {images.map((item, index) => {
         const src = URL.createObjectURL(item);
         return (
-          <ImageListItem
-            rows={5}
-            key={`${item.name}-${item.size}`}
-            sx={{ maxHeight: "125px" }}
-          >
+          <ImageListItem rows={5} key={uuidv4()} sx={{ maxHeight: "125px" }}>
             <img
               style={{ height: "125px", width: "145px" }}
               src={src}
-              alt={item.name}
+              alt={uuidv4()}
               loading="lazy"
             />
-            <StyledImageListItemBar
-              position="top"
-              actionIcon={
-                <IconButton
-                  aria-label={`delete ${item.name}`}
-                  sx={{
-                    background: "gba(255, 255, 255, 0.7)",
-                    backdropFilter: "blur(2px)",
-                  }}
-                  onClick={() => onDelete(item, index)}
-                >
-                  <DeleteIcon color="primary" />
-                </IconButton>
-              }
-              actionPosition="right"
-            />
+            {onDelete ? (
+              <StyledImageListItemBar
+                position="top"
+                actionIcon={
+                  <IconButton
+                    aria-label={`delete image#${index + 1}`}
+                    sx={{
+                      background: "gba(255, 255, 255, 0.7)",
+                      backdropFilter: "blur(2px)",
+                    }}
+                    onClick={() => onDelete(index)}
+                  >
+                    <DeleteIcon color="primary" />
+                  </IconButton>
+                }
+                actionPosition="right"
+              />
+            ) : null}
           </ImageListItem>
         );
       })}

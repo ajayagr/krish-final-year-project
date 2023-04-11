@@ -1,8 +1,11 @@
-import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+import {
+  DateCalendar,
+  DateCalendarProps,
+} from "@mui/x-date-pickers/DateCalendar";
 import { PickerSelectionState } from "@mui/x-date-pickers/internals";
 import dayjs from "dayjs";
 
-interface IShortCalendarProps {
+interface IShortCalendarProps extends DateCalendarProps<dayjs.Dayjs> {
   defaultSelectedValue: string;
   onChange?:
     | ((
@@ -12,13 +15,18 @@ interface IShortCalendarProps {
     | undefined;
 }
 
-const ShortCalendar = (props: IShortCalendarProps) => {
+const ShortCalendar = ({
+  defaultSelectedValue,
+  onChange,
+  ...rest
+}: IShortCalendarProps) => {
   return (
     <DateCalendar
+      {...rest}
       sx={{ width: "100%", px: 4 }}
-      value={dayjs(props.defaultSelectedValue)}
+      value={dayjs(defaultSelectedValue)}
       showDaysOutsideCurrentMonth
-      onChange={props.onChange}
+      onChange={onChange}
     />
   );
 };
