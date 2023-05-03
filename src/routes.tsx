@@ -1,4 +1,4 @@
-import { Navigate, createBrowserRouter } from "react-router-dom";
+import { Navigate, createHashRouter } from "react-router-dom";
 import App from "./App";
 import Auth from "./pages/auth";
 import Login from "./pages/auth/Login";
@@ -7,7 +7,7 @@ import Project from "./pages/project";
 import Calendar from "./pages/project/Calendar";
 import TaskStatus from "./pages/project/TaskStatus";
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     path: "/",
     element: <App />,
