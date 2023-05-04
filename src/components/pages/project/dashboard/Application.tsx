@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { TApplication } from "../../../../constants/project";
 import { Typography, styled } from "@mui/material";
 import CustomLink from "../../../routing/CustomLink";
