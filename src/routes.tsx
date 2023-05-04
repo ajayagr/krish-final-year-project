@@ -6,6 +6,10 @@ import SignUp from "./pages/auth/Signup";
 import Project from "./pages/project";
 import Calendar from "./pages/project/Calendar";
 import TaskStatus from "./pages/project/TaskStatus";
+import ProjectDashboard from "./pages/project/Dashboard";
+import Estimation from "./pages/project/Estimation";
+import TaskModules from "./pages/project/TaskModules";
+import Plans from "./pages/project/Plans";
 
 export const router = createHashRouter([
   {
@@ -22,12 +26,28 @@ export const router = createHashRouter([
         children: [
           { index: true, element: <Navigate to="calendar" /> },
           {
+            path: "dashboard",
+            element: <ProjectDashboard />,
+          },
+          {
             path: "calendar",
             element: <Calendar />,
           },
           {
             path: "status/:date",
             element: <TaskStatus />,
+          },
+          {
+            path: "estimation",
+            element: <Estimation />,
+          },
+          {
+            path: "task_module",
+            element: <TaskModules />,
+          },
+          {
+            path: "plans",
+            element: <Plans />,
           },
         ],
       },

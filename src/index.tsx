@@ -6,7 +6,7 @@ import { RouterProvider } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { router } from "./routes";
 import { Provider } from "react-redux";
-import { store } from "./store";
+import store from "./store";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 
