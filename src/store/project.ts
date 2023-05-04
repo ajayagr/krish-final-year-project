@@ -1,28 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { TProject } from "../constants/project";
+import { projects } from "../constants/project/index";
 
-export interface IProjectState {
-  id: string | number | null;
-  name: string;
-  description: string;
-}
-
-const initialState: IProjectState = {
-  id: 1234,
-  name: "Sapthagiri Civil Block Construction",
-  description:
-    "Lorem ipsum dolor sit amet consectetur. Mattis diam quis et neque. Et et nec eu nibh sed lorem nibh. Quisque tristique amet iaculis imperdiet elementum massa. Quis sollicitudin aliquet est in montes at condimentum. Ut vitae mauris ac potenti rhoncus. Turpis habitant commodo porttitor mauris.",
+const initialState: TProject = {
+  ...projects[0],
 };
 
 export const projectSlice = createSlice({
   name: "project",
   initialState,
   reducers: {
-    setProject(state, action: PayloadAction<IProjectState>) {
-      const { name, id, description } = action.payload;
-      state.name = name;
-      state.id = id;
-      state.description = description;
+    setProject(state, action: PayloadAction<TProject>) {
+      state = { ...action.payload };
+      return state;
     },
   },
 });
