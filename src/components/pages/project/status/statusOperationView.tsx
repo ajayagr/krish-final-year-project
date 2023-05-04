@@ -1,6 +1,6 @@
 import { Box, Stack, Typography, styled } from "@mui/material";
-import { IDailyStatusReadData } from "../../../pages/project/TaskStatus";
-import ImagePreviewList from "../../ImagePreviewList";
+import { IDailyStatusReadData } from "../../../../pages/project/TaskStatus";
+import ImagePreviewList from "../../../ImagePreviewList";
 
 const FieldHeading = styled(Typography)({
   fontWeight: 500,

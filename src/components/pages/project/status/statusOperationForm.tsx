@@ -1,10 +1,10 @@
 import { Box, Stack, Grid, TextField, Button, Typography } from "@mui/material";
-import ImagePreviewList from "../../ImagePreviewList";
-import IOSSwitchComponent from "../../inputs/IOSSwitch";
+import ImagePreviewList from "../../../ImagePreviewList";
+import IOSSwitchComponent from "../../../inputs/IOSSwitch";
 import { useState, useRef, useMemo, useCallback } from "react";
 import AttachmentIcon from "@mui/icons-material/Attachment";
-import { IDailyStatusFormData } from "../../../pages/project/TaskStatus";
-import { fileToBlob } from "../../../utils/fileUtils";
+import { IDailyStatusFormData } from "../../../../pages/project/TaskStatus";
+import { fileToBlob } from "../../../../utils/fileUtils";
 
 interface IStatusOperationForm {
   data: IDailyStatusFormData;

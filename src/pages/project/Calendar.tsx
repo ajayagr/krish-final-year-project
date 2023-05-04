@@ -8,8 +8,9 @@ import {
   EventSourceInput,
 } from "@fullcalendar/core";
 import { useNavigate } from "react-router";
-import BlockCalendar from "../../components/project/blockCalendar";
 import { useState } from "react";
+import BlockCalendar from "../../components/pages/project/blockCalendar";
+import { useParams } from "react-router-dom";
 
 const eventTitles = ["Foundation", "Pillar"];
 
@@ -38,10 +39,13 @@ const generateEvents = (overlappingEvents: number): EventSourceInput => {
 
 const Calendar = () => {
   const navigate = useNavigate();
+  const { projectId } = useParams();
   const [showBlockCalendar, setShowBlockCalendar] = useState(false);
 
   const handleDateSelect = (arg: DateSelectArg) => {
-    navigate(`/project/status/${arg.startStr}`, { relative: "route" });
+    navigate(`/project/${projectId}/status/${arg.startStr}`, {
+      relative: "route",
+    });
   };
 
   const handleBlockCalendar = (ev: MouseEvent, elem: HTMLElement) => {
