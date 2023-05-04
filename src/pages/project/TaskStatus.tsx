@@ -12,9 +12,9 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import ShortCalendar from "../../components/Calendar/ShortCalendar";
 import { taskList } from "../../constants/options";
-import StatusOperationForm from "../../components/project/status/statusOperationForm";
+import StatusOperationForm from "../../components/pages/project/status/statusOperationForm";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
-import StatusOperationView from "../../components/project/status/statusOperationView";
+import StatusOperationView from "../../components/pages/project/status/statusOperationView";
 
 const getTaskItems = () => {
   const taskNum = Math.max(1, Math.round(Math.random() * 3));

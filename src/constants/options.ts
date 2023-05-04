@@ -3,6 +3,11 @@ export interface IOption {
   value: any;
 }
 
+export enum Designations {
+  CHIEF_ENGINEER = "CE",
+  SITE_ENGINEER = "SE",
+}
+
 export const designationOptions: IOption[] = [
   { label: "Chief Engineer", value: "CE" },
   { label: "Site Engineer", value: "SE" },

@@ -8,8 +8,8 @@ import {
   EventSourceInput,
 } from "@fullcalendar/core";
 import { useNavigate } from "react-router";
-import BlockCalendar from "../../components/project/blockCalendar";
 import { useState } from "react";
+import BlockCalendar from "../../components/pages/project/blockCalendar";
 
 const eventTitles = ["Foundation", "Pillar"];
 
