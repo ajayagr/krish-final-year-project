@@ -17,10 +17,10 @@ export const router = createHashRouter([
         element: <Navigate to="/auth" />,
       },
       {
-        path: "project",
+        path: "project/:projectId",
         element: <Project />,
         children: [
-          { index: true, element: <Calendar /> },
+          { index: true, element: <Navigate to="calendar" /> },
           {
             path: "calendar",
             element: <Calendar />,

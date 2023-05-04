@@ -40,8 +40,10 @@ const dailyStatus: IDailyStatusReadData = {
 const TaskStatus = () => {
   const [tasks, setTasks] = useState<string[]>([]);
   const [selectedTask, setSelectedTask] = useState("");
-  const { date } = useParams();
+  const { date, projectId } = useParams();
   const navigate = useNavigate();
+
+  console.log(date, projectId);
 
   const selectedDate = new Date(date as string);
   const month = selectedDate.toLocaleString("default", { month: "long" });
@@ -51,7 +53,7 @@ const TaskStatus = () => {
     if (!a) {
       return;
     }
-    navigate(`/project/status/${a.format("YYYY-MM-DD")}`);
+    navigate(`/project/${projectId}/status/${a.format("YYYY-MM-DD")}`);
   };
 
   useEffect(() => {
@@ -97,7 +99,9 @@ const TaskStatus = () => {
               textTransform={"none"}
               color="primary"
               onClick={() =>
-                navigate("/project/calendar", { relative: "route" })
+                navigate(`/project/${projectId}/calendar`, {
+                  relative: "route",
+                })
               }
             >
               Month
