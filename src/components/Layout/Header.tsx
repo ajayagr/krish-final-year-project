@@ -13,15 +13,15 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useState } from "react";
 import CustomLink from "../routing/CustomLink";
 import { useLocation } from "react-router";
+import Logo from "../../assets/images/logo.png";
 
-const StyledLink = styled(CustomLink)({
+const StyledLink = styled(CustomLink)(({ theme }) => ({
   marginRight: "16px",
   textDecoration: "none",
-  color: "#333",
+  color: theme.palette.primary.main,
   fontSize: "1.2rem",
   fontWeight: 600,
-  textTransform: "uppercase",
-});
+}));
 
 const StyledAvatar = styled(Avatar)({
   width: "32px",
@@ -52,47 +52,49 @@ const Header = () => {
   return (
     <StyledAppBar position="static">
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+        <CustomLink to="/">
+          <img src={Logo} alt="logo" />
+        </CustomLink>
         <div style={{ display: "flex", alignItems: "center" }}>
           <StyledLink to="/">Home</StyledLink>
-          <StyledLink to="/project">Projects</StyledLink>
-        </div>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <IconButton color="inherit" sx={{ mr: "24px" }}>
-            <Badge badgeContent={3} color="secondary">
-              <NotificationsIcon htmlColor="black" />
-            </Badge>
-          </IconButton>
-          <Tooltip title="Account settings">
-            <IconButton
-              onClick={handleClick}
-              size="small"
-              sx={{ ml: 2 }}
-              aria-controls={open ? "account-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? "true" : undefined}
-            >
-              <StyledAvatar src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"></StyledAvatar>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <IconButton color="inherit" sx={{ mr: "24px" }}>
+              <Badge badgeContent={3} color="secondary">
+                <NotificationsIcon htmlColor="black" />
+              </Badge>
             </IconButton>
-          </Tooltip>
-          <Menu
-            anchorEl={anchorEl}
-            id="account-menu"
-            open={open}
-            onClose={handleClose}
-            onClick={handleClose}
-            PaperProps={{
-              elevation: 0,
-              sx: {
-                overflow: "visible",
-                filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-              },
-            }}
-            transformOrigin={{ horizontal: "right", vertical: "top" }}
-            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-          >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem> Logout</MenuItem>
-          </Menu>
+            <Tooltip title="Account settings">
+              <IconButton
+                onClick={handleClick}
+                size="small"
+                sx={{ ml: 2 }}
+                aria-controls={open ? "account-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+              >
+                <StyledAvatar src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"></StyledAvatar>
+              </IconButton>
+            </Tooltip>
+            <Menu
+              anchorEl={anchorEl}
+              id="account-menu"
+              open={open}
+              onClose={handleClose}
+              onClick={handleClose}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: "visible",
+                  filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                },
+              }}
+              transformOrigin={{ horizontal: "right", vertical: "top" }}
+              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+            >
+              <MenuItem onClick={handleClose}>Profile</MenuItem>
+              <MenuItem> Logout</MenuItem>
+            </Menu>
+          </div>
         </div>
       </Toolbar>
     </StyledAppBar>

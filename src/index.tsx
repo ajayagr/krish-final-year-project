@@ -35,6 +35,9 @@ const theme = createTheme({
       light: "#D0D0D0",
       dark: "#292929",
     },
+    customBgColor: {
+      main: "#F7F7F7",
+    },
     accent: {
       main: "#A055F5",
     },

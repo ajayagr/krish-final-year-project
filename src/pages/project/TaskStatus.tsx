@@ -15,6 +15,7 @@ import { taskList } from "../../constants/options";
 import StatusOperationForm from "../../components/pages/project/status/statusOperationForm";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import StatusOperationView from "../../components/pages/project/status/statusOperationView";
+import BreadCrumb, { PathType } from "../../components/BreadCrumb";
 
 const getTaskItems = () => {
   const taskNum = Math.max(1, Math.round(Math.random() * 3));
@@ -64,6 +65,7 @@ const TaskStatus = () => {
 
   return (
     <div className="w-full">
+      <BreadCrumb pathType={PathType.calendar} />
       <Grid container alignItems={"baseline"} justifyContent={"center"}>
         <Grid item component="p" className="divide-x-4" xs>
           <span>

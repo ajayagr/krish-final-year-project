@@ -11,7 +11,9 @@ import { useNavigate } from "react-router";
 import { useState } from "react";
 import BlockCalendar from "../../components/pages/project/blockCalendar";
 import { useParams } from "react-router-dom";
+import BreadCrumb, { PathType } from "../../components/BreadCrumb";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const eventTitles = ["Foundation", "Pillar"];
 
 const generateEvents = (overlappingEvents: number): EventSourceInput => {
@@ -88,6 +90,7 @@ const Calendar = () => {
 
   return (
     <Stack className="w-full">
+      <BreadCrumb pathType={PathType.calendar} />
       <Grid item xs={12} display={"flex"} flexGrow={1}>
         <CustomFullCalendar
           isEditable={false}

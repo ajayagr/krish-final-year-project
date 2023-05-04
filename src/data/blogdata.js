@@ -1,8 +1,8 @@
-import img from "../assets/marketing1.jpg";
-import img1 from "../assets/marketing2.jpg";
-import sales from "../assets/sales.jpg";
-import sales1 from "../assets/sales1.jpg";
-import sales2 from "../assets/sales2.jpg";
+import img from "../assets/images/calendar.png";
+import img1 from "../assets/images/estimation.png";
+import sales from "../assets/images/plans.png";
+import sales1 from "../assets/images/task_module.png";
+import sales2 from "../assets/images/calendar.png";
 export const data = [
   {
     id: 1,

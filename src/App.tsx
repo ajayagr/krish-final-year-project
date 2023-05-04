@@ -23,7 +23,7 @@ function App() {
       <Grid item xs={12}>
         <Header />
       </Grid>
-      <MainBody item marginX={12} mt={3} xs={12} display="flex">
+      <MainBody item marginX={11} mt={3} xs={12} display="flex">
         <Outlet />
       </MainBody>
       {/* <Footer /> */}

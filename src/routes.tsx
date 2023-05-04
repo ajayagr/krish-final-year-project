@@ -10,6 +10,7 @@ import ProjectDashboard from "./pages/project/Dashboard";
 import Estimation from "./pages/project/Estimation";
 import TaskModules from "./pages/project/TaskModules";
 import Plans from "./pages/project/Plans";
+import Landingpage from "./pages/Landingpage";
 
 export const router = createHashRouter([
   {
@@ -21,10 +22,14 @@ export const router = createHashRouter([
         element: <Navigate to="/auth" />,
       },
       {
+        path: "my-projects",
+        element: <Landingpage />,
+      },
+      {
         path: "project/:projectId",
         element: <Project />,
         children: [
-          { index: true, element: <Navigate to="calendar" /> },
+          { index: true, element: <Navigate to="dashboard" /> },
           {
             path: "dashboard",
             element: <ProjectDashboard />,
@@ -42,7 +47,7 @@ export const router = createHashRouter([
             element: <Estimation />,
           },
           {
-            path: "task_module",
+            path: "task-module",
             element: <TaskModules />,
           },
           {
