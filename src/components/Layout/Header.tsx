@@ -14,6 +14,7 @@ import { useState } from "react";
 import CustomLink from "../routing/CustomLink";
 import { useLocation } from "react-router";
 import Logo from "../../assets/images/logo.png";
+import { useNavigate } from "react-router-dom";
 
 const StyledLink = styled(CustomLink)(({ theme }) => ({
   marginRight: "16px",
@@ -38,6 +39,7 @@ const hideHeaderLinks = ["auth"];
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const location = useLocation();
+  const navigate = useNavigate();
   if (hideHeaderLinks.some((link) => location.pathname.includes(link))) {
     return null;
   }
@@ -52,11 +54,11 @@ const Header = () => {
   return (
     <StyledAppBar position="static">
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        <CustomLink to="/">
+        <CustomLink to="/home">
           <img src={Logo} alt="logo" />
         </CustomLink>
         <div style={{ display: "flex", alignItems: "center" }}>
-          <StyledLink to="/">Home</StyledLink>
+          <StyledLink to="/home">Home</StyledLink>
           <div style={{ display: "flex", alignItems: "center" }}>
             <IconButton color="inherit" sx={{ mr: "24px" }}>
               <Badge badgeContent={3} color="secondary">
@@ -92,7 +94,7 @@ const Header = () => {
               anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             >
               <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem> Logout</MenuItem>
+              <MenuItem onClick={() => navigate("/")}>Logout</MenuItem>
             </Menu>
           </div>
         </div>
