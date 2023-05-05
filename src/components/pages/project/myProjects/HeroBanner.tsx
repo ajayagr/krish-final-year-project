@@ -21,8 +21,8 @@ const HeroBanner = () => {
           maxWidth={"692px"}
           lineHeight={1.5}
         >
-          Lorem ipsum dolor sit amet consectetur. Bibendum pretium dictum
-          maecenas tortor faucibus scelerisque mauris quam. Sit velit quis.
+          Transform the way we desgin, build and manage infrastructure. 
+          From Project Planning, Scheduling, Montoring progress, All in one platform.
         </Typography>
       </Box>
     </div>
