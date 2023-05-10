@@ -9,6 +9,7 @@ import { styled } from "@mui/material";
 export interface IImagePreviewListProps {
   images: Array<File | Blob>;
   onDelete?: (index: number) => void;
+  itemCount?: number;
 }
 
 const StyledImageListItemBar = styled(ImageListItemBar)({
@@ -18,6 +19,7 @@ const StyledImageListItemBar = styled(ImageListItemBar)({
 export default function ImagePreviewList({
   images,
   onDelete,
+  itemCount,
 }: IImagePreviewListProps) {
   if (!images.length) return <></>;
   return (
@@ -28,7 +30,7 @@ export default function ImagePreviewList({
         transform: "translateZ(0)",
         mt: 2,
       }}
-      cols={4}
+      cols={itemCount ?? 4}
       rowHeight={200}
       gap={24}
     >

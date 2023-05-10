@@ -13,6 +13,17 @@ import Project4 from "../../assets/images/projects/project_4.png";
 import Project5 from "../../assets/images/projects/project_5.png";
 import Project6 from "../../assets/images/projects/project_6.png";
 import Project7 from "../../assets/images/projects/project_7.png";
+import Plan1 from "../../assets/images/plans/plan_1.jpg";
+import Plan2 from "../../assets/images/plans/plan_2.jpg";
+import Plan3 from "../../assets/images/plans/plan_3.jpg";
+import Plan4 from "../../assets/images/plans/plan_4.jpg";
+import Plan5 from "../../assets/images/plans/plan_5.jpg";
+import Plan6 from "../../assets/images/plans/plan_6.jpg";
+import Plan7 from "../../assets/images/plans/plan_7.jpg";
+import Plan8 from "../../assets/images/plans/plan_8.jpg";
+import Plan9 from "../../assets/images/plans/plan_9.jpg";
+import Plan10 from "../../assets/images/plans/plan_10.jpg";
+import Plan11 from "../../assets/images/plans/plan_11.jpg";
 import { Designations } from "../options";
 
 export type TApplication = {
@@ -36,6 +47,14 @@ export type TProject = {
   end_date: string;
   budget: string;
   imageUrl: string;
+  plans: TPlan[];
+};
+
+export type TPlan = {
+  name: string;
+  uploadDate: string;
+  description: string;
+  filePath: string;
 };
 
 export enum ProjectStatus {
@@ -67,6 +86,86 @@ export const ProjectStatusDetails: Record<
   },
 };
 
+export const plans: TPlan[] = [
+  {
+    name: "Building A Renovation",
+    uploadDate: "2022-01-15",
+    description:
+      "Renovation plans for the 5-story office building, including facade improvements and interior updates.",
+    filePath: Plan1,
+  },
+  {
+    name: "Parking Lot Expansion",
+    uploadDate: "2022-02-21",
+    description:
+      "Site plans for the expansion of the employee parking lot, including new lighting and drainage improvements.",
+    filePath: Plan2,
+  },
+  {
+    name: "Site Drainage Improvements",
+    uploadDate: "2022-05-19",
+    description:
+      "Plans for the installation of new drainage systems and landscaping improvements to prevent water damage to existing structures.",
+    filePath: Plan3,
+  },
+  {
+    name: "Building B Remodel",
+    uploadDate: "2022-06-05",
+    description:
+      "Remodeling plans for the 2-story office building, including updated electrical and plumbing systems.",
+    filePath: Plan4,
+  },
+  {
+    name: "Roof Replacement",
+    uploadDate: "2022-07-11",
+    description:
+      "Plans for the replacement of an aging roof on an existing building, including new insulation and ventilation.",
+    filePath: Plan5,
+  },
+  {
+    name: "New Residential Construction",
+    uploadDate: "2022-08-09",
+    description:
+      "Site plans for the construction of a new residential development, including street layout and utility connections.",
+    filePath: Plan6,
+  },
+  {
+    name: "Site Grading",
+    uploadDate: "2022-09-04",
+    description:
+      "Plans for the grading and excavation of a new site, including retaining walls and erosion control measures.",
+    filePath: Plan7,
+  },
+  {
+    name: "Commercial Kitchen Addition",
+    uploadDate: "2022-10-22",
+    description:
+      "Plans for the addition of a new commercial kitchen space to an existing restaurant building, including HVAC and plumbing design.",
+    filePath: Plan8,
+  },
+  {
+    name: "Site Access Improvements",
+    uploadDate: "2022-11-13",
+    description:
+      "Plans for the installation of new roadways and entrances to improve site access and traffic flow.",
+    filePath: Plan9,
+  },
+  {
+    name: "Greenhouse Construction",
+    uploadDate: "2022-12-08",
+    description:
+      "Site plans for the construction of a new greenhouse facility, including irrigation and climate control systems.",
+    filePath: Plan10,
+  },
+  {
+    name: "Building C Remodel",
+    uploadDate: "2023-01-02",
+    description:
+      "Plans for the remodel of a 3-story office building, including new finishes and updated mechanical systems.",
+    filePath: Plan11,
+  },
+];
+
 export const projects: TProject[] = [
   {
     id: 12345,
@@ -78,6 +177,7 @@ export const projects: TProject[] = [
     budget: "500 crore",
     status: ProjectStatus.Planned,
     imageUrl: Project1,
+    plans: [...plans],
   },
   {
     id: 23456,
@@ -89,6 +189,7 @@ export const projects: TProject[] = [
     budget: "250 crore",
     status: ProjectStatus.InProgress,
     imageUrl: Project2,
+    plans: [...plans],
   },
   {
     id: 34567,
@@ -100,6 +201,7 @@ export const projects: TProject[] = [
     budget: "750 crore",
     status: ProjectStatus.Planned,
     imageUrl: Project3,
+    plans: [...plans],
   },
   {
     id: 45678,
@@ -111,6 +213,7 @@ export const projects: TProject[] = [
     budget: "300 crore",
     status: ProjectStatus.InProgress,
     imageUrl: Project4,
+    plans: [...plans],
   },
   {
     id: 56789,
@@ -122,6 +225,7 @@ export const projects: TProject[] = [
     budget: "200 crore",
     status: ProjectStatus.Completed,
     imageUrl: Project5,
+    plans: [...plans],
   },
   {
     id: 67890,
@@ -133,6 +237,7 @@ export const projects: TProject[] = [
     budget: "400 crore",
     status: ProjectStatus.Halted,
     imageUrl: Project6,
+    plans: [...plans],
   },
   {
     id: 78901,
@@ -144,6 +249,7 @@ export const projects: TProject[] = [
     budget: "80 crore",
     status: ProjectStatus.Completed,
     imageUrl: Project7,
+    plans: [...plans],
   },
 ];
 

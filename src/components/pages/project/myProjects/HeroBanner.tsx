@@ -21,8 +21,9 @@ const HeroBanner = () => {
           maxWidth={"692px"}
           lineHeight={1.5}
         >
-          Transform the way we desgin, build and manage infrastructure. 
-          From Project Planning, Scheduling, Montoring progress, All in one platform.
+          Transform the way we desgin, build and manage infrastructure. From
+          Project Planning, Scheduling, Monitoring progress, All in one
+          platform.
         </Typography>
       </Box>
     </div>

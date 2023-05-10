@@ -9,7 +9,7 @@ export interface IUserState {
 
 const initialState: IUserState = {
   name: "",
-  role: null,
+  role: Designations.CHIEF_ENGINEER,
 };
 
 export const userSlice = createSlice({
