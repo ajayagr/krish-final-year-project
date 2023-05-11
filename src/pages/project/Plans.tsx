@@ -115,6 +115,7 @@ interface IPlanDetailParams {
 const FullSizePlanImage = styled("img")({
   width: "100%",
   minHeight: "75vh",
+  maxHeight: "80vh",
 });
 
 const PlanDetail = ({ plan, handleClose }: IPlanDetailParams) => {
