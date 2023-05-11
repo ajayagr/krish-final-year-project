@@ -219,7 +219,7 @@ const NewProject = () => {
               endIcon={<AttachmentIcon sx={{ transform: "rotate(135deg)" }} />}
               onClick={() => fileUploadRef.current?.click()}
             >
-              Upload File
+              Upload File *
               <input
                 id="upload-image"
                 name="upload-image"
@@ -236,6 +236,7 @@ const NewProject = () => {
             <Button
               type="submit"
               variant="contained"
+              disabled={!(startDate && endDate && uploadedFile)}
               sx={{ marginLeft: "auto" }}
             >
               Add new project
