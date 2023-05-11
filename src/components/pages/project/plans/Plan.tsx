@@ -49,6 +49,7 @@ const Plan = ({ plan, selectPlan, deletePlan }: IPlanParams) => {
           border: "1px solid #E6E6DC",
           borderBottomLeftRadius: "8px",
           borderBottomRightRadius: "8px",
+          height: "150px",
         }}
         gap={1}
       >
@@ -63,7 +64,7 @@ const Plan = ({ plan, selectPlan, deletePlan }: IPlanParams) => {
         <Typography fontSize="18px" variant="body2">
           {name}
         </Typography>
-        <Typography mt={1} fontSize={"12px"}>
+        <Typography mt={1} fontSize={"12px"} className="line-clamp-3">
           {description}
         </Typography>
       </Stack>

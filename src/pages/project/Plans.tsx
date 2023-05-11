@@ -30,8 +30,8 @@ const Plans = () => {
   const [selectedPlan, setSelectedPlan] = useState<TPlan | null>(null);
   const [showUpload, setShowUpload] = useState<boolean>(false);
 
-  const handleDelete = (index: number) => {
-    store.dispatch(deletePlan(index));
+  const handleDelete = (plan: TPlan) => {
+    store.dispatch(deletePlan(plan));
   };
 
   const handleAddPlan = (plan: TPlan) => {
@@ -59,15 +59,21 @@ const Plans = () => {
           ) : null}
         </Box>
         <Grid container spacing={3} justifyContent={"stretch"}>
-          {project.plans.map((plan, idx) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={plan.name}>
-              <Plan
-                plan={plan}
-                selectPlan={setSelectedPlan}
-                deletePlan={() => handleDelete(idx)}
-              />
-            </Grid>
-          ))}
+          {[...project.plans]
+            .sort(
+              (plan1, plan2) =>
+                new Date(plan2.uploadDate).getTime() -
+                new Date(plan1.uploadDate).getTime()
+            )
+            .map((plan, idx) => (
+              <Grid item xs={12} sm={6} md={4} lg={3} key={plan.name}>
+                <Plan
+                  plan={plan}
+                  selectPlan={setSelectedPlan}
+                  deletePlan={() => handleDelete(plan)}
+                />
+              </Grid>
+            ))}
         </Grid>
       </Stack>
       {selectedPlan ? (

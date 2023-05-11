@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { TPlan, TProject } from "../constants/project";
 import { projects } from "../constants/project/index";
+import _ from "lodash";
 
 const initialState: TProject = {
   ...projects[0],
@@ -18,8 +19,13 @@ export const projectSlice = createSlice({
     addPlan(state, action: PayloadAction<TPlan>) {
       state.plans.push(action.payload);
     },
-    deletePlan(state, action: PayloadAction<number>) {
-      state.plans.splice(action.payload, 1);
+    deletePlan(state, action: PayloadAction<TPlan>) {
+      const index = state.plans.findIndex((plan) =>
+        _.isEqual(plan, action.payload)
+      );
+      if (index > -1) {
+        state.plans.splice(index, 1);
+      }
     },
   },
 });
