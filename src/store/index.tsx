@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./auth";
 import userReducer from "./user";
 import projectReducer from "./project";
+import projectsReducer from "./projects";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     user: userReducer,
     project: projectReducer,
+    projects: projectsReducer,
   },
 });
 

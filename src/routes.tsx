@@ -11,6 +11,7 @@ import Estimation from "./pages/project/Estimation";
 import TaskModules from "./pages/project/TaskModules";
 import Plans from "./pages/project/Plans";
 import MyProjects from "./pages/MyProjects";
+import NewProject from "./pages/project/New";
 
 export const router = createHashRouter([
   {
@@ -70,5 +71,9 @@ export const router = createHashRouter([
   {
     path: "my-projects",
     element: <MyProjects />,
+  },
+  {
+    path: "projects/new",
+    element: <NewProject />,
   },
 ]);

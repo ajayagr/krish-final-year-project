@@ -10,20 +10,30 @@ export enum PathType {
   taskModule = "Task Module",
 }
 
-export interface IBreadCrumbParams {
-  pathType?: PathType;
+interface IBreadCrumb {
+  title: string;
+  url: string;
 }
 
-const BreadCrumb = ({ pathType }: IBreadCrumbParams) => {
+export interface IBreadCrumbParams {
+  pathType?: PathType;
+  customBreadCrumbList?: IBreadCrumb[];
+}
+
+const BreadCrumb = ({ pathType, customBreadCrumbList }: IBreadCrumbParams) => {
   const { project } = store.getState();
   const { projectId } = useParams();
-  const breadCrumbList = [
-    { title: "Home", url: "/" },
+  let breadCrumbList = [
+    { title: "Home", url: "/my-projects" },
     { title: "My Projects", url: "/my-projects" },
     { title: project.name, url: `/project/${projectId}/dashboard` },
   ];
   if (pathType) {
     breadCrumbList.push({ title: pathType, url: `#` });
+  }
+
+  if (customBreadCrumbList) {
+    breadCrumbList = customBreadCrumbList;
   }
   return (
     <div role="presentation" className="mb-6">

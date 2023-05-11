@@ -37,7 +37,11 @@ export default function ImagePreviewList({
       {images.map((item, index) => {
         const src = URL.createObjectURL(item);
         return (
-          <ImageListItem rows={5} key={uuidv4()} sx={{ maxHeight: "125px" }}>
+          <ImageListItem
+            rows={5}
+            key={uuidv4()}
+            sx={{ maxHeight: "125px", maxWidth: "150px" }}
+          >
             <img
               style={{ height: "125px", width: "145px" }}
               src={src}

@@ -39,7 +39,7 @@ export type TContact = {
 };
 
 export type TProject = {
-  id: number;
+  id: number | string;
   name: string;
   description: string;
   status: ProjectStatus;

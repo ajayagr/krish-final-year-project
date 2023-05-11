@@ -17,13 +17,14 @@ import { Designations } from "../../constants/options";
 import { TPlan } from "../../constants/project";
 import store, { RootState } from "../../store";
 import Plan from "../../components/pages/project/plans/Plan";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState, useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { formatDate } from "../../utils/dateUtils";
 import { addPlan, deletePlan } from "../../store/project";
 import { useSelector } from "react-redux";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import ImagePreviewList from "../../components/ImagePreviewList";
+import { editProject } from "../../store/projects";
 
 const Plans = () => {
   const { user, project } = useSelector((store: RootState) => store);
@@ -42,10 +43,14 @@ const Plans = () => {
     setShowUpload(false);
   };
 
+  useEffect(() => {
+    store.dispatch(editProject(project));
+  }, [project]);
+
   return (
-    <Stack>
+    <Stack className="w-full">
       <BreadCrumb pathType={PathType.plans} />
-      <Stack gap="25px" pb={8}>
+      <Stack gap="25px" pb={8} className="w-full">
         <Box className="flex justify-between items-center">
           <Typography variant="h5">Plans</Typography>
           {user.role === Designations.CHIEF_ENGINEER ? (
@@ -74,6 +79,15 @@ const Plans = () => {
                 />
               </Grid>
             ))}
+          {project.plans.length === 0 ? (
+            <Grid item>
+              <Typography>
+                No plans exist for this project. Please add a new plan.
+              </Typography>
+            </Grid>
+          ) : (
+            <></>
+          )}
         </Grid>
       </Stack>
       {selectedPlan ? (
@@ -100,7 +114,7 @@ interface IPlanDetailParams {
 
 const FullSizePlanImage = styled("img")({
   width: "100%",
-  minHeight: "80vh",
+  minHeight: "75vh",
 });
 
 const PlanDetail = ({ plan, handleClose }: IPlanDetailParams) => {
